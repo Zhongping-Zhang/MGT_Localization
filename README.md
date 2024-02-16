@@ -10,7 +10,9 @@
 
 <!--<img src="figure_overview.png" alt="alt text" style="zoom:50%;" />-->
 
-<img src="figure_overview.png" alt="alt text" width="500" height="400" >
+<div style="text-align: center;">
+    <img src="figure_overview.png" alt="alt text" width="450" height="300" >
+</div>
 
 
 Our code, checkpoints, and data will be publicly released upon acceptance.
