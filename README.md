@@ -2,6 +2,7 @@
 
 
 **Machine-generated Text Localization** is a task aiming at recognizing machine-generated sentences within a document.
+Our data and code will be publicly released upon acceptance.
 
     @misc{Zhang2024MGTL,
          author={Zhongping Zhang and Wenda Qin and Bryan A. Plummer},
@@ -15,7 +16,7 @@
 </div>
 
 
-Our data and code will be publicly released upon acceptance.
+
 
 
 
