@@ -15,7 +15,7 @@
 </div>
 
 
-Our code, checkpoints, and data will be publicly released upon acceptance.
+Our data and code will be publicly released upon acceptance.
 
 
 
