@@ -3,7 +3,7 @@
 
 **Machine-generated Text Localization** is a task aiming at recognizing machine-generated sentences within a document. This repository contains the implementation of our [paper](https://arxiv.org/pdf/2402.11744.pdf).
 
-Our data and code will be publicly released upon acceptance.
+Our data and checkpoints will be publicly released upon acceptance.
 
     @article{zhang2024machinegenerated,
              title={Machine-generated Text Localization},
