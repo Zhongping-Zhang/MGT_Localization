@@ -8,10 +8,12 @@ Our code, checkpoints, and data will be publicly released soon.
 If you find this code useful in your research, please consider citing for our [paper](https://arxiv.org/pdf/2402.11744.pdf). 
 
 
-    @misc{Zhang2024MGTL,
-         author={Zhongping Zhang and Wenda Qin and Bryan A. Plummer},
-         title={Machine-generated Text Localization},
-         year={2024}}
+    @article{zhang2024machinegenerated,
+             title={Machine-generated Text Localization},
+             author={Zhongping Zhang and Wenda Qin and Bryan A. Plummer},
+             journal={arXiv preprint arXiv:2402.11744},
+             year={2024}
+             }
 
 <!--<img src="figure_overview.png" alt="alt text" style="zoom:50%;" />-->
 
