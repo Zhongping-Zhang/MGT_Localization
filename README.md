@@ -37,7 +37,7 @@ or set up the environment by pip
 pip install -r requirements.txt
 ```
 
-If spacy is not installed before in your machine, the following command might be useful 
+If spaCy is not installed before in your machine, the following command might be useful 
 ```shell
 python -m spacy download en_core_web_sm
 ```
@@ -45,21 +45,23 @@ python -m spacy download en_core_web_sm
 # Interactive Apps for MGTL
 
 ## MGTL by Roberta Detectors
-Adapt OpenAI-D[[2]](#openai_d) to MGTL
+Apply OpenAI-D[[2]](#openai_d) to MGTL
 ```python
 python gradio_MGTL_roberta.py
 ```
+![img](github_figures/screenshot_black_roberta_mgtl.png)
 
-Adapt ChatGPT-D[[3]](#chatgpt_d)) to MGTL
+Apply ChatGPT-D[[3]](#chatgpt_d) to MGTL
 ```python
 python gradio_MGTL_roberta.py --model_name=Hello-SimpleAI/chatgpt-detector-roberta
 ```
 
 ## MGTL by Fast-DetectGPT
-Adapt Fast-DetectGPT[[4]](#fast_detectgpt) to MGTL
+Apply Fast-DetectGPT[[4]](#fast_detectgpt) to MGTL, where we borrow the implementation code from [their official repo](https://github.com/baoguangsheng/fast-detect-gpt).
 ```python
 python gradio_MGTL_fastdetectgpt.py
 ```
+![img](github_figures/screenshot_black_fastdetectgpt_mgtl.png)
 Though DetectGPT[[5]](#detectgpt) series methods are zero-shot methods, they still need training data to determine 
 the thresholds. Thus, if you would like to get a decent results on your own data, specific data distribution 
 files (*e.g.*, files under gradio_utils/local_infer_ref) would be useful.
