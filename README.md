@@ -64,7 +64,7 @@ python gradio_MGTL_fastdetectgpt.py
 ![img](github_figures/screenshot_black_fastdetectgpt_mgtl.png)
 Though DetectGPT[[5]](#detectgpt) series methods are zero-shot methods, they still need training data to determine 
 the thresholds. Thus, if you would like to get a decent results on your own data, specific data distribution 
-files (*e.g.*, files under gradio_utils/local_infer_ref) would be useful.
+files (*e.g.*, files under [gradio_utils/local_infer_ref](gradio_utils/local_infer_ref)) would be useful.
 
 
 
