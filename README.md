@@ -4,7 +4,7 @@
 **Machine-generated Text Localization** is a task aiming at recognizing machine-generated sentences within a document.
 ![img](github_figures/MGTL_demo.gif)
 
-If you find this code useful in your research, please consider citing for our [paper](https://arxiv.org/pdf/2402.11744.pdf). 
+If you find this code useful in your research, please consider citing our [paper](https://arxiv.org/pdf/2402.11744.pdf). 
 
     @article{zhang2024machinegenerated,
              title={Machine-generated Text Localization},
