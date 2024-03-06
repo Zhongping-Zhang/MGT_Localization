@@ -2,6 +2,7 @@
 
 
 **Machine-generated Text Localization** is a task aiming at recognizing machine-generated sentences within a document.
+![img](github_figures/MGTL_demo.gif)
 
 If you find this code useful in your research, please consider citing for our [paper](https://arxiv.org/pdf/2402.11744.pdf). 
 
@@ -18,7 +19,7 @@ If you find this code useful in your research, please consider citing for our [p
 </div>-->
 
 
-![img](github_figures/MGTL_demo.gif)
+
 
 ## TODO LIST
 - [x] Gradio apps for Machine-generated Text Localization [[1]](#mgtl) (MGTL)
