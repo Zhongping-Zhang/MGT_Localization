@@ -4,7 +4,7 @@
 **Machine-generated Text Localization** is a task aiming at recognizing machine-generated sentences within a document.
 ![img](github_figures/MGTL_demo.gif)
 
-If you find this code useful in your research, please consider citing our [paper](https://arxiv.org/pdf/2402.11744.pdf):
+If you find this code useful in your research, please consider citing our [paper](https://arxiv.org/pdf/2402.11744.pdf). 
 
     @article{zhang2024machinegenerated,
              title={Machine-generated Text Localization},
@@ -21,13 +21,12 @@ If you find this code useful in your research, please consider citing our [paper
 
 
 
-## TODO LIST
+### Updates
 - [x] Gradio apps for Machine-generated Text Localization [[1]](#mgtl) (MGTL)
-- [x] Apply Roberta Models (OpenAI-D [[2]](#openai_d), ChatGPT-D[[3]](#chatgpt_d)) to MGTL
-- [x] Apply Fast-DetectGPT[[4]](#fast_detectgpt) to MGTL
+- [x] Support Roberta Detectors (OpenAI-D [[2]](#openai_d), ChatGPT-D[[3]](#chatgpt_d)) on MGTL
+- [x] Support Fast-DetectGPT[[4]](#fast_detectgpt) on MGTL
 - [x] Release code for data generation
-- [ ] Release code for AdaLoc
-
+- [x] Release code for AdaLoc
 
 ## Setting up the Environment
 We provide two options to create an environment for MGTL. You can either create a new conda environment
@@ -45,25 +44,25 @@ If spaCy is not installed before in your machine, the following command might be
 python -m spacy download en_core_web_sm
 ```
 
-# Interactive Apps for MGTL
+## Interactive Apps for MGTL
 In this section, we provide interactive apps for the MGTL task. We have integrated OpenAI-Detector [[2]](#openai_d), 
 ChatGPT-Detector [[3]](#chatgpt_d), and Fast-DetectGPT [[4]](#fast_detectgpt) into our interactive platform as examples.
 Feel free to plug in your preferred/developed method!
 
-## MGTL by Roberta Detectors
-Integrate OpenAI-Detector to MGTL
+### Support Roberta Detectors on MGTL
+Apply OpenAI-Detector to MGTL
 ```python
 python gradio_MGTL_roberta.py
 ```
 ![img](github_figures/screenshot_black_roberta_mgtl.png)
 
-Integrate ChatGPT-Detector to MGTL
+Apply ChatGPT-Detector to MGTL
 ```python
 python gradio_MGTL_roberta.py --model_name=Hello-SimpleAI/chatgpt-detector-roberta
 ```
 
-## MGTL by Fast-DetectGPT
-Integrate Fast-DetectGPT to MGTL. We borrow the implementation code from [their official repo](https://github.com/baoguangsheng/fast-detect-gpt).
+### Support Fast-DetectGPT on MGTL
+Apply Fast-DetectGPT to MGTL. We borrow the implementation code from [their official repo](https://github.com/baoguangsheng/fast-detect-gpt).
 ```python
 python gradio_MGTL_fastdetectgpt.py
 ```
@@ -84,7 +83,26 @@ sh scripts/prepare_manipulated_goodnews.sh
 sh scripts/prepare_manipulated_visualnews.sh
 sh scripts/prepare_manipulated_wikitext.sh
 ```
-We provide the original articles of these datasets on [Google Drive](https://drive.google.com/drive/folders/1KmtlbHlwp2piuZIKx-HVKO3N2dRAQFjY?usp=sharing).
+We provide the original articles of these datasets under [this folder](https://drive.google.com/drive/folders/1KmtlbHlwp2piuZIKx-HVKO3N2dRAQFjY?usp=sharing).
+Manipulated articles are provided under [this folder](https://drive.google.com/drive/folders/18FryMm6cH5-r4YUMHXQg8gfnEpexMYPR?usp=sharing).
+
+**Disclaimer: Manipulated articles should be used only for RESEARCH purpose, like developing MGT Detectors.**
+
+## Train & Evaluate Roberta+AdaLoc
+Run the following script to train Roberta+AdaLoc:
+```sh
+sh scripts/run_train_adaloc.sh
+```
+AdaLoc is finetuned on 10,000 GoodNews articles, we perform zero-shot experiments on VisualNews and WikiText articles.
+Run the following scripts to evaluate Roberta+AdaLoc:
+```sh
+sh scripts/run_sentence_head_goodnews.sh
+sh scripts/run_sentence_head_visualnews.sh
+sh scripts/run_sentence_head_wikitext.sh
+```
+We provide our checkpoints and evaluation results on [Google Drive](https://drive.google.com/drive/folders/1D8qYcVoYgwNG7IzadF01W3eyPiuPRnY6?usp=sharing). Since we further filtered some bad samples in training data, 
+the evaluation results are better than we reported in our paper.
+
 
 
 

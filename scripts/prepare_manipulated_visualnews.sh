@@ -1,4 +1,4 @@
-#conda activate alpaca
+#conda activate mgtl
 export PYTHONPATH=$PWD
 
 VISUALNEWS_TRAIN_FILE=data/Visualnews/filtereddata/visualnews_train.jsonl
@@ -6,7 +6,7 @@ VISUALNEWS_VAL_FILE=data/Visualnews/filtereddata/visualnews_val.jsonl
 VISUALNEWS_TEST_FILE=data/Visualnews/filtereddata/visualnews_test.jsonl
 OUTPUT_FOLDER=data/Text_Localization/Visualnews
 
-train_article_num=10000
+train_article_num=11000
 test_article_num=1100
 model_list=(gpt2-xl EleutherAI/gpt-neo-2.7B EleutherAI/gpt-j-6B facebook/opt-2.7b EleutherAI/gpt-neox-20b)
 seg_list=(3 2 1)
@@ -20,7 +20,8 @@ for model_name in ${model_list[@]}; do
       --file_path=${VISUALNEWS_TEST_FILE}\
       --output_dir=${OUTPUT_FOLDER}\
       --segment_num=${seg_num} \
-      --article_num=${test_article_num}
+      --article_num=${test_article_num}\
+      --random_seed=$((${seg_num}+234))
   done
 done
 
@@ -34,7 +35,8 @@ done
 #      --file_path=${VISUALNEWS_TRAIN_FILE}\
 #      --output_dir=${OUTPUT_FOLDER}\
 #      --segment_num=${seg_num} \
-#      --article_num=${train_article_num}
+#      --article_num=${train_article_num}\
+#      --random_seed=${seg_num}
 #  done
 #done
 

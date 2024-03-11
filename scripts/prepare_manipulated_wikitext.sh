@@ -1,4 +1,4 @@
-#conda activate alpaca
+#conda activate mgtl
 export PYTHONPATH=$PWD
 
 WIKITEXT_TEST_FILE=data/WikiText/wikitext2_test.jsonl
@@ -19,7 +19,8 @@ for model_name in ${model_list[@]}; do
       --file_path=${WIKITEXT_TEST_FILE}\
       --output_dir=${OUTPUT_FOLDER}\
       --segment_num=${seg_num}\
-      --article_num=${test_article_num}
+      --article_num=${test_article_num}\
+      --random_seed=$((${seg_num}+345))
   done
 done
 
