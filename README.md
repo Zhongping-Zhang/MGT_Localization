@@ -86,7 +86,7 @@ sh scripts/prepare_manipulated_wikitext.sh
 We provide the original articles of these datasets under [this folder](https://drive.google.com/drive/folders/1KmtlbHlwp2piuZIKx-HVKO3N2dRAQFjY?usp=sharing).
 Manipulated articles are provided under [this folder](https://drive.google.com/drive/folders/18FryMm6cH5-r4YUMHXQg8gfnEpexMYPR?usp=sharing).
 
-**Disclaimer: Manipulated articles should be used only for RESEARCH purpose, like developing MGT Detectors.**
+**Disclaimer: Manipulated articles should be used only for RESEARCH purpose (*e.g.*, developing MGT Detectors).**
 
 ## Train & Evaluate Roberta+AdaLoc
 Run the following script to train Roberta+AdaLoc:
@@ -100,7 +100,7 @@ sh scripts/run_sentence_head_goodnews.sh
 sh scripts/run_sentence_head_visualnews.sh
 sh scripts/run_sentence_head_wikitext.sh
 ```
-We provide our checkpoints and evaluation results on [Google Drive](https://drive.google.com/drive/folders/1D8qYcVoYgwNG7IzadF01W3eyPiuPRnY6?usp=sharing). Since we further filtered some bad samples in training data, 
+We provide our checkpoints and evaluation results on [Google Drive](https://drive.google.com/drive/folders/1D8qYcVoYgwNG7IzadF01W3eyPiuPRnY6?usp=sharing). Since we further filtered out some bad samples in training data, 
 the evaluation results are better than we reported in our paper.
 
 
