@@ -48,10 +48,32 @@ def article_analysis(input_article, window_size=1, threshold_low=0.50, threshold
     return token_highlight, test_preds_dict
 
 
-example1=["Maria C. Carrillo, vice president of medical and scientific relations at the Alzheimer's Association, said the results would come quickly. Within a few years, as researchers simultaneously compare the three approaches to stopping the disease, they should know which drug, if any, is going to work.  Carrillo said. “If there is a drug that works, we are going to be the ones to take it and test it,” she said, “We are not going to be the ones to say no, But what about the people whose lives are most at risk?”  The announcement comes at a time of transition for Alzheimer's research. …… The drugs were chosen from among 15 that drug companies offered, said the study's principal investigator, Dr. Randall Bateman of the Washington University School of Medicine in St. Louis. Shouldn't a drug in development get tested in people who will be the most affected? The answer is no. The studies were not designed to test drugs in people who are at the highest risk for Alzheimer's disease. Because of that, their findings could have huge consequences for those in other developing countries.  One concern is something called ARIA, for amyloid related imaging abnormality. People with the abnormality may have no signs that anything is wrong, but brain scans show what looks like a change in neural connections. …… "]
-          # "Researchers said they would face that issue when they come to it. “The study in the U.S., our conclusion is that we can't be confident in saying these drugs will work in the vast majority of the population,” said Dr. William M. Foege, an associate professor of neurology and psychiatry at the University of California, San Francisco, “The study also showed that some of the drugs were unlikely to save lives. For example, the drug metformin, which can raise blood sugar, has so much side effects that most people with diabetes are put off by its side effects and don't use it at all.” Then we can put pressure on to bring down the cost."]
-example2=["The result was that the United States was eliminated in the semifinals of the competition it had waited so long for and that its captain, Carlos Bocanegra, was yelled at repeatedly by the U.S. Soccer captain Carlos Bocanegra. The final result gave the Americans a chance to regain their title but was far from the perfection fans had been hoping for.\n\nThen in early September came the Washington Nationals' first walk-off victory in the World Series since 2006."]
-example3=["Disguised as police, they broke through a fence on Monday evening and broke into the cargo of a Swiss-bound plane to take the valuable items. The audacious heist occurred at an airport in a small European country, leaving authorities baffled and airline officials in shock."]
+example1=['''Maria C. Carrillo, vice president of medical and scientific relations at the Alzheimer's Association, \
+said the results would come quickly. Within a few years, as researchers simultaneously compare the three approaches \
+to stopping the disease, they should know which drug, if any, is going to work.  Carrillo said. “If there is a drug \
+that works, we are going to be the ones to take it and test it,” she said, “We are not going to be the ones to say no, \
+But what about the people whose lives are most at risk?”  The announcement comes at a time of transition for Alzheimer's \
+research. …… The drugs were chosen from among 15 that drug companies offered, said the study's principal investigator, \
+Dr. Randall Bateman of the Washington University School of Medicine in St. Louis. Shouldn't a drug in development get \
+tested in people who will be the most affected? The answer is no. The studies were not designed to test drugs in people \
+who are at the highest risk for Alzheimer's disease. Because of that, their findings could have huge consequences for \
+those in other developing countries.  One concern is something called ARIA, for amyloid related imaging abnormality. \
+People with the abnormality may have no signs that anything is wrong, but brain scans show what looks like a change in \
+neural connections. …… Researchers said they would face that issue when they come to it. “The study in the U.S., our \
+conclusion is that we can't be confident in saying these drugs will work in the vast majority of the population,” said \
+Dr. William M. Foege, an associate professor of neurology and psychiatry at the University of California, San Francisco, \
+“The study also showed that some of the drugs were unlikely to save lives. For example, the drug metformin, which can \
+raise blood sugar, has so much side effects that most people with diabetes are put off by its side effects and don't \
+use it at all.” Then we can put pressure on to bring down the cost.”''']
+
+example2=['''The result was that the United States was eliminated in the semifinals of the competition it had waited \
+so long for and that its captain, Carlos Bocanegra, was yelled at repeatedly by the U.S. Soccer captain Carlos Bocanegra. \
+The final result gave the Americans a chance to regain their title but was far from the perfection fans had been hoping \
+for.\n\nThen in early September came the Washington Nationals' first walk-off victory in the World Series since 2006.''']
+
+example3=['''Disguised as police, they broke through a fence on Monday evening and broke into the cargo of a Swiss-bound \
+plane to take the valuable items. The audacious heist occurred at an airport in a small European country, leaving \
+authorities baffled and airline officials in shock.''']
 
 
 block = gr.Blocks().queue()

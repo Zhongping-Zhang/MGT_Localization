@@ -22,17 +22,20 @@ If you find this code useful in your research, please consider citing our [paper
 
 
 ### Updates
-- [x] Gradio apps for Machine-generated Text Localization [[1]](#mgtl) (MGTL)
-- [x] Support Roberta Detectors (OpenAI-D [[2]](#openai_d), ChatGPT-D[[3]](#chatgpt_d)) on MGTL
-- [x] Support Fast-DetectGPT[[4]](#fast_detectgpt) on MGTL
-- [x] Release code for data generation
-- [x] Release code for AdaLoc
+- **`2024/03/16`** 🔥Support [Binoculars](https://github.com/ahans30/Binoculars) on MGTL, thanks a lot for their great work!
+- **`2024/03/10`** 🔥Release code for Roberta+AdaLoc.
+- **`2024/03/05`** Release code for data generation.
+- **`2024/03/01`** Support Fast-DetectGPT[[4]](#fast_detectgpt) on MGTL. Thanks a lot for their great work!
+- **`2024/03/01`** Support Roberta Detectors (OpenAI-D [[2]](#openai_d), ChatGPT-D[[3]](#chatgpt_d)) on MGTL. Thanks a lot for their great works!
+- **`2024/03/01`** Gradio apps for Machine-generated Text Localization [[1]](#mgtl) (MGTL).
+
 
 ## Setting up the Environment
 We provide two options to create an environment for MGTL. You can either create a new conda environment
 ```shell
 conda env create -f environment.yml
 conda activate mgtl
+conda install pytorch==2.2.0 pytorch-cuda=12.1 -c pytorch -c nvidia
 ```
 or set up the environment by pip
 ```shell
@@ -73,7 +76,15 @@ accurately determine whether these sentences are machine-generated. Thus, if you
 your own data, specific data distribution files (*e.g.*, files under [gradio_utils/local_infer_ref](gradio_utils/local_infer_ref)) 
 would be useful.
 
-## Data Preparation
+### Support Binoculars on MGTL 🔥
+Apply Binoculars to MGTL. We borrow the implementation code from [their official repo](https://github.com/ahans30/Binoculars).
+```python
+python gradio_MGTL_binoculars.py
+```
+![img](github_figures/screenshot_black_binoculars_mgtl.png)
+We found that Binoculars exhibit a strong generalization ability across various LLM-generated texts!
+
+## Data Preparation 🔥
 
 Since Essay and WP datasets already provide machine-generated text, we directly mix them using our *merge_sentences* 
 function in [dataloader_utils.py](dataloaders/dataloader_utils.py). For GoodNews, VisualNews, and WikiText, run the 
@@ -88,7 +99,7 @@ Manipulated articles are provided under [this folder](https://drive.google.com/d
 
 **Disclaimer: Manipulated articles should be used only for RESEARCH purpose (*e.g.*, developing MGT Detectors).**
 
-## Train & Evaluate Roberta+AdaLoc
+## Train & Evaluate Roberta+AdaLoc 🔥
 Run the following script to train Roberta+AdaLoc:
 ```sh
 sh scripts/run_train_adaloc.sh
@@ -115,7 +126,7 @@ We appreciate the following projects (and many other open source projects not li
 [FastDetectGPT](https://github.com/baoguangsheng/fast-detect-gpt) &#8194; 
 [GhostBuster](https://github.com/vivek3141/ghostbuster) &#8194;
 [MGTBench](https://github.com/xinleihe/MGTBench) &#8194;
-
+[Binoculars](https://github.com/ahans30/Binoculars) &#8194;
 
 ## Reference 
 <a id="mgtl">[1]</a>
@@ -132,5 +143,4 @@ Bao, Guangsheng, et al. "Fast-DetectGPT: Efficient Zero-Shot Detection of Machin
 
 <a id="detectgpt">[5]</a>
 Mitchell, Eric, et al. "DetectGPT: Zero-Shot Machine-Generated Text Detection Using Probability Curvature" ICML 2023.
-
 

@@ -3,55 +3,54 @@ import argparse
 import torch
 import transformers
 import spacy
-# import os
-# os.system('python -m spacy download en_core_web_sm') # uncomment this if en_core_web_sm is not installed
 nlp = spacy.load("en_core_web_sm")
-from gradio_utils import get_supervised_model_prediction, highlight_text, DEVICE
+from gradio_utils import get_binoculars_model_prediction, highlight_text, DEVICE, Binoculars
 
 
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--model_name', type=str, default="roberta-large-openai-detector", help="supervised detector name")
-parser.add_argument('--cache_dir', type=str, default=".cache")
+parser.add_argument('--model_name', type=str, default="Binoculars (https://github.com/ahans30/Binoculars)", help="detector name")
+parser.add_argument('--cache_dir', type=str, default="/projectnb/ivc-ml/zpzhang/checkpoints/transformers_cache")
 args = parser.parse_args()
 print(args)
 
-print(f'Beginning supervised evaluation with {args.model_name}...')
+print(f'Beginning Binoculars (https://github.com/ahans30/Binoculars) evaluation with {args.model_name}...')
+bino = Binoculars(cache_dir=args.cache_dir)
 
 
-POS_BIT = 0 if "openai" in args.model_name else 1
-PRETRAINED_DETECTOR_LIST=["roberta-large-openai-detector","roberta-base-openai-detector",
-                          "Hello-SimpleAI/chatgpt-detector-roberta"]
-if args.model_name in PRETRAINED_DETECTOR_LIST:
-    DETECTOR = transformers.AutoModelForSequenceClassification.from_pretrained(
-        pretrained_model_name_or_path=args.model_name, num_labels=2, cache_dir=args.cache_dir).to(DEVICE)
-    TOKENIZER = transformers.AutoTokenizer.from_pretrained(
-        pretrained_model_name_or_path=args.model_name, cache_dir=args.cache_dir)
-
-
-def article_analysis(input_article, window_size=1, pos_bit=1, threshold_low=0.50, threshold_high=0.60,
-                     strategy="vote"):
+def article_analysis(input_article, window_size=1, threshold_low=0.50, threshold_high=0.60, strategy="vote"):
     doc = nlp(input_article)
     sentence_spans = list(doc.sents)
     sentence_list = [str(ele) for ele in sentence_spans]
 
-    test_preds, test_preds_org, whole_document_score = get_supervised_model_prediction(model=DETECTOR,
-                                                                                       tokenizer=TOKENIZER,
-                                                                                       sentence_list=sentence_list,
-                                                                                       pos_bit=pos_bit,
-                                                                                       window_size=window_size,
-                                                                                       strategy=strategy)
+    binoculars_threshold = bino.threshold
+    test_preds, test_preds_org, whole_document_score, binoculars_preds, whole_document_binoculars_score, whole_document_label = \
+        get_binoculars_model_prediction(sentence_list=sentence_list,
+                                        window_size=window_size,
+                                        strategy=strategy,
+                                        cache_dir=args.cache_dir,
+                                        bino=bino)
 
     test_preds_dict = {"pretrained detector": args.model_name,
-                       "whole document score, machine-generated": "{:.2f}%".format(whole_document_score * 100),
-                       "sentence scores": test_preds}
+                       # "whole document score, machine-generated": "{:.2f}%".format(whole_document_score * 100),
+                       # "sentence scores": test_preds,
+                       "whole document label": whole_document_label,
+                       "whole document Binoculars score": "{:f}".format(whole_document_binoculars_score),
+                       "Binoculars Threshold": "{:f}".format(binoculars_threshold),
+                       "sentence Binoculars scores": binoculars_preds,}
     token_highlight = highlight_text(sentence_list, test_preds, threshold_low=threshold_low,
                                      threshold_high=threshold_high)
 
     return token_highlight, test_preds_dict
 
 
+example2=['''Dr. Capy Cosmos, a capybara unlike any other, astounded the scientific community with his \
+groundbreaking research in astrophysics. With his keen sense of observation and unparalleled ability to interpret \
+cosmic data, he uncovered new insights into the mysteries of black holes and the origins of the universe. As he \
+peered through telescopes with his large, round eyes, fellow researchers often remarked that it seemed as if the \
+stars themselves whispered their secrets directly to him. Dr. Cosmos not only became a beacon of inspiration to \
+aspiring scientists but also proved that intellect and innovation can be found in the most unexpected of creatures.''']
 
 example1=['''Machine-Generated Text (MGT) detection aims to identify a piece of text as machine or human written. \
 Prior work has primarily formulated MGT as a binary classification task over an entire document, with limited work \
@@ -65,10 +64,6 @@ multiple sentences are machine or human written at once.  This enables our appro
 or content to boost performance. A gain of 4-13% mean Average Precision (mAP) over prior work demonstrates the \
 effectiveness of approach on five diverse datasets: GoodNews, VisualNews, WikiText, Essay, and WP.''']
 
-example2=['''The result was that the United States was eliminated in the semifinals of the competition it had waited \
-so long for and that its captain, Carlos Bocanegra, was yelled at repeatedly by the U.S. Soccer captain Carlos Bocanegra. \
-The final result gave the Americans a chance to regain their title but was far from the perfection fans had been hoping \
-for.\n\nThen in early September came the Washington Nationals' first walk-off victory in the World Series since 2006.''']
 
 example3=['''Maria C. Carrillo, vice president of medical and scientific relations at the Alzheimer's Association, \
 said the results would come quickly. Within a few years, as researchers simultaneously compare the three approaches \
@@ -90,22 +85,23 @@ use it at all.” Then we can put pressure on to bring down the cost."''']
 
 
 
+
 block = gr.Blocks().queue()
 with block:
     with gr.Row():
-        gr.Markdown("## Machine-generated Text Localization (Roberta Detector)")
+        gr.Markdown("## Machine-generated Text Localization (Binoculars)")
     with gr.Row():
         with gr.Column():
             prompt = gr.Textbox(label="Input Article: ")
             strategy = gr.Radio(["single-sentence", "multi-sentence"], label="strategy for MGT detectors", value="multi-sentence")
             run_button = gr.Button(value="Run") # label="Run" for older Gradio version
-            with gr.Accordion("Advanced options", open=False):
+            with gr.Accordion("Advanced options for Binoculars", open=False):
                 window_size = gr.Slider(label="number of sentences per window", minimum=1, maximum=10, value=3, step=1)
-                pos_bit = gr.Slider(label="pos_bit for detector (OpenAI-D=0; ChatGPT-D=1)", minimum=0, maximum=1, value=POS_BIT, step=1)
                 threshold_low = gr.Slider(label="lower threshold for MGT", minimum=0, maximum=1, value=0.5, step=0.01)
                 threshold_high = gr.Slider(label="upper threshold for MGT", minimum=0, maximum=1, value=0.6, step=0.01)
 
-            examples = gr.Examples(examples=[example1, example2, example3],
+
+            examples = gr.Examples(examples=[example2, example1, example3],
                                    inputs=[prompt],
                                    )
 
@@ -117,7 +113,12 @@ with block:
             result_json = gr.Json(label="MGTL analysis json results", show_label=True,)
             result_html = gr.HTML(label="MGTL HTML visualization", show_label=True)
 
-    run_button.click(fn=article_analysis, inputs=[prompt, window_size, pos_bit, threshold_low, threshold_high, strategy], outputs=[result_highlight, result_json])
+    run_button.click(fn=article_analysis, inputs=[prompt, window_size, threshold_low, threshold_high, strategy], outputs=[result_highlight, result_json])
+
 
 
 block.launch(server_name='0.0.0.0', share=True)
+
+
+
+

@@ -68,7 +68,7 @@ def get_supervised_model_prediction(model, tokenizer, sentence_list, pos_bit=0, 
     return majority_vote_preds_mean, majority_vote_preds, whole_document_score
 
 
-
+# functions for Fast-DetectGPT (https://github.com/baoguangsheng/fast-detect-gpt)
 from gradio_utils.fastdetectgpt_scripts.model import load_tokenizer, load_model
 from gradio_utils.fastdetectgpt_scripts.utils_fastdetectgpt import fastdetectgpt_args, get_fastdetectgpt_score
 def get_metric_model_prediction(args, sentence_list, window_size=1, window_step=1, strategy="multi-sentence"):
@@ -114,6 +114,59 @@ def get_metric_model_prediction(args, sentence_list, window_size=1, window_step=
 
 
 
+# functions for Binocular (https://github.com/ahans30/Binoculars)
+# functions for Binocular (https://github.com/ahans30/Binoculars)
+from gradio_utils.binoculars import Binoculars
+
+def get_binoculars_model_prediction(sentence_list, window_size=1, window_step=1, strategy="multi-sentence", cache_dir=".cache", bino=None,
+                                    return_binary_label=True,):
+    """ prediction labels for the input sentence list, 1 corresponds to Machine-generated Text,
+    this function is used for Binocular
+    :param args:
+    :param sentence_list:
+    :param window_size: model becomes more reliable after around 50 tokens
+    :param window_step:
+    :return:
+    """
+    if strategy=="single-sentence":
+        window_size=1
+
+    # load model
+    if bino is None:
+        bino = Binoculars(cache_dir=cache_dir)
+    binoculars_threshold = bino.threshold
+
+    with torch.no_grad():
+        majority_vote_preds = [[] for i in range(len(sentence_list))]
+        binoculars_vote_preds = [[] for i in range(len(sentence_list))]
+
+        # calculate prediction score for the whole document
+        text_merge = " ".join(sentence_list)
+        whole_document_binoculars_score = bino.compute_score(text_merge)
+        whole_document_score = -(whole_document_binoculars_score-binoculars_threshold)+0.5  # when Binoculars score< threshold, likely AI-generated; Otherwise, human-generated
+        whole_document_score = min(max(whole_document_score, 0), 1)
+        whole_document_label = bino.predict(text_merge)
+
+        for window_start in range(0, max(1, len(sentence_list)-window_size+1), window_step):
+            text_data = sentence_list[window_start:window_start+window_size]
+            text_merge = " ".join(text_data)
+            binoculars_score = bino.compute_score(text_merge)
+            prediction_score = -(binoculars_score-binoculars_threshold)+0.5
+            prediction_score = min(max(prediction_score, 0), 1)
+
+            try:
+                for vote_idx in range(window_start, window_start+window_size):
+                    majority_vote_preds[vote_idx].append(prediction_score)
+                    binoculars_vote_preds[vote_idx].append(binoculars_score)
+            except:
+                for vote_idx in range(window_start, min(window_start + window_size, len(sentence_list))):
+                    majority_vote_preds[vote_idx].append(prediction_score)
+                    binoculars_vote_preds[vote_idx].append(binoculars_score)
+
+    majority_vote_preds_mean = [(sum(sub_list)/len(sub_list)) for sub_list in majority_vote_preds]
+    binoculars_vote_preds_mean = [(sum(sub_list) / len(sub_list)) for sub_list in binoculars_vote_preds]
+
+    return majority_vote_preds_mean, majority_vote_preds, whole_document_score, binoculars_vote_preds_mean, whole_document_binoculars_score, whole_document_label
 
 
 
