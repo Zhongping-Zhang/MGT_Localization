@@ -2,6 +2,10 @@
 
 
 **Machine-generated Text Localization** is a task aiming at recognizing machine-generated sentences within a document.
+You can find our synthetic data [here](https://drive.google.com/drive/folders/18FryMm6cH5-r4YUMHXQg8gfnEpexMYPR?usp=sharing), 
+Roberta+AdaLoc implmentation [here](AdaLoc/roberta_adaloc.py), 
+and model weights [here](https://drive.google.com/drive/folders/1D8qYcVoYgwNG7IzadF01W3eyPiuPRnY6?usp=sharing).
+
 ![img](github_figures/MGTL_demo.gif)
 
 If you find this code useful in your research, please consider citing our [paper](https://arxiv.org/pdf/2402.11744.pdf). 
