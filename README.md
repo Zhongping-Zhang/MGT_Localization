@@ -1,7 +1,7 @@
-# Machine-generated Text Localization
+# Machine-Generated Text Localization
 
 
-**Machine-generated Text Localization** is a task aiming at recognizing machine-generated sentences within a document.
+**Machine-Generated Text Localization** is a task aiming at recognizing machine-generated sentences within a document.
 You can find our synthetic data [here](https://drive.google.com/drive/folders/18FryMm6cH5-r4YUMHXQg8gfnEpexMYPR?usp=sharing), 
 Roberta+AdaLoc implmentation [here](AdaLoc/roberta_adaloc.py), 
 and model weights [here](https://drive.google.com/drive/folders/1D8qYcVoYgwNG7IzadF01W3eyPiuPRnY6?usp=sharing).
