@@ -10,12 +10,11 @@ and model weights [here](https://drive.google.com/drive/folders/1D8qYcVoYgwNG7Iz
 
 If you find this code useful in your research, please consider citing our [paper](https://arxiv.org/pdf/2402.11744.pdf). 
 
-    @article{zhang2024machinegenerated,
-             title={Machine-generated Text Localization},
-             author={Zhongping Zhang and Wenda Qin and Bryan A. Plummer},
-             journal={arXiv preprint arXiv:2402.11744},
-             year={2024}
-             }
+    @InProceedings{ZhangMTL2024,
+         author={Zhongping Zhang and Wenda Qin and Bryan A. Plummer},
+         title={Machine-generated Text Localization},
+         booktitle={Findings of the Annual Meeting of the Association for Computational Linguistics (ACL)},
+         year={2024}}
 
 
 <!--<div style="text-align: center;">
